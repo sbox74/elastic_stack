@@ -1,0 +1,58 @@
+
+---
+
+- name: install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: copy config
+  ansible.builtin.template:
+    src: "{{ nginx_conf }}"
+    dest: "/etc/nginx/sites-available/{{ nginx_conf }}"
+    force: yes
+    backup: yes
+
+- name: copy cert
+  ansible.builtin.copy:
+    src: "{{ nginx_cert }}"
+    dest: /etc/ssl/certs/
+    force: yes
+    backup: yes
+
+- name: copy key
+  ansible.builtin.copy:
+    src: "{{ nginx_key }}"
+    dest: /etc/ssl/private/
+    force: yes
+    mode: '644'
+    backup: yes
+
+- name: clean sites
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled
+    state: absent
+
+- name: create sites
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled
+    state: directory
+
+- name: create a symbolic link
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ nginx_conf }}"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_conf }}"
+    force: yes
+    state: link
+
+- name: copy html
+  ansible.builtin.copy:
+    src: index.html
+    dest: "/var/www/{{ nginx_dir }}/"
+    force: yes
+
+- name: start nginx
+  ansible.builtin.service:
+    name: nginx
+    enabled: yes
+    state: restarted

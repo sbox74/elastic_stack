@@ -1,0 +1,22 @@
+---
+
+- name: Install Elasticsearch Stack
+  hosts: nginx
+  become: yes
+
+  tasks:
+
+    - name: install Elastic
+      import_role:
+        name: elastic
+
+    - name: install Kibana
+      import_role:
+        name: kibana
+
+    - name: install Filebeat
+      import_role:
+        name: filebeat
+
+
+

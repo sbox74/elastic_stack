@@ -1,0 +1,10 @@
+---
+
+- name: install Filebeat
+  hosts: nginx
+  become: yes
+
+  tasks:
+    - name: install Filebeat
+      import_role:
+        name: filebeat

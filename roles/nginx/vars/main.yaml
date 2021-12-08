@@ -1,0 +1,6 @@
+---
+
+nginx_conf: my_nginx.conf
+nginx_cert: nginx.crt
+nginx_key:  nginx.key
+nginx_dir:  my_nginx

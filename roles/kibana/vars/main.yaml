@@ -1,0 +1,6 @@
+---
+
+kibana_version: kibana-7.15.2-amd64.deb
+kibana_conf: kibana.yml
+kibana_host: localhost
+kibana_port: 5601

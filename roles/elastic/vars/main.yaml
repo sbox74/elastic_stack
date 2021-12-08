@@ -1,0 +1,8 @@
+---
+
+elastic_version: elasticsearch-7.15.2-amd64.deb
+elastic_conf: elasticsearch.yml
+elastic_host: localhost
+elastic_port: 9200
+node_name: master
+master_nodes: '["master"]'

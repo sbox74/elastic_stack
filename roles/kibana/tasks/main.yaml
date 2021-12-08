@@ -1,0 +1,25 @@
+---
+
+- name: download Kibana
+  ansible.builtin.get_url:
+    url: "https://artifacts.elastic.co/downloads/kibana/{{ kibana_version }}"
+    dest: "/tmp/{{ kibana_version }}"
+
+- name: install Kibana
+  ansible.builtin.apt:
+    deb: "/tmp/{{ kibana_version }}"
+    state: present
+
+- name: copy Kibana configuration
+  ansible.builtin.template:
+    src: "{{ kibana_conf }}"
+    dest: "/etc/kibana/kibana.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart Kibana
+  ansible.builtin.service:
+    name: kibana
+    enabled: true
+    state: restarted

@@ -1,0 +1,11 @@
+---
+
+- name: install Elasticsearch
+  hosts: nginx
+  become: yes
+
+  tasks:
+    - name: install Elastic
+      import_role:
+        name: elastic
+

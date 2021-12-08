@@ -1,0 +1,25 @@
+---
+
+- name: download Filebeat
+  ansible.builtin.get_url:
+    url: "https://artifacts.elastic.co/downloads/beats/filebeat/{{ filebeat_version }}"
+    dest: "/tmp/{{ filebeat_version }}"
+
+- name: install Filebeat
+  ansible.builtin.apt:
+    deb: "/tmp/{{ filebeat_version }}"
+    state: present
+
+- name: copy Filebeat configuration.
+  ansible.builtin.template:
+    src: "{{ filebeat_conf }}"
+    dest: "/etc/filebeat/filebeat.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart Filebeat
+  ansible.builtin.service:
+    name: filebeat
+    enabled: true
+    state: restarted

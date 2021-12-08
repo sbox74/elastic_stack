@@ -1,0 +1,11 @@
+---
+
+- name: install Kibana
+  hosts: nginx
+  become: yes
+
+  tasks:
+    - name: install Kibana
+      import_role:
+        name: kibana
+

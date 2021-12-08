@@ -1,0 +1,10 @@
+---
+
+- name: install nginx
+  hosts: nginx
+  become: yes
+
+  tasks:
+    - name: install nginx using role
+      import_role:
+        name: nginx
